@@ -1,9 +1,15 @@
-import Abuelo from "../../components/Ejemplo/Abuelo";
+import UserContext from "../../context/UserContext";
+import { useContext } from "react";
 
-const Home = ({token}) => {
+const Home = () => {
+ 
+  const { userState } = useContext(UserContext);
+  console.log(userState)
+  const user = userState.infoUser
+
   return (
     <div>
-      <Abuelo token={token} />
+     <h1>Bienvenido, {user.email}</h1>
     </div>
   )
 }

@@ -1,7 +1,19 @@
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import Logout from "../../components/Logout/Logout";
+import UserContext from "../../context/UserContext";
+import CartContext from "../../context/cart/CartContext";
+import { useContext } from "react";
+import CartIcon from "../../components/cart/cart-icon/CartIcon";
+import CartDropdown from "../../components/cart/cartDropdown/CartDropdown";
 
 const Navigation = () => {
+
+  const { userState } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
+
+
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" variant="dark" bg="dark">
@@ -17,15 +29,19 @@ const Navigation = () => {
             <Nav.Link as={NavLink} to="/cart">
               Cart
             </Nav.Link>
-            {/* <NavDropdown title='Admin'>
-            <NavDropdown.Item as={NavLink} to='/pedidos'>Pedidos</NavDropdown.Item>
-          </NavDropdown> */}
+            <NavDropdown title={userState.infoUser.firstname}>
+              <NavDropdown.Item as={NavLink} to='/user/myprofile'>My profile</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link as={NavLink} to="/auth">
+            { userState.authStatus ?  <Logout /> : <Nav.Link as={NavLink} to="/auth">
               Login
             </Nav.Link>
+            }
+            <CartIcon />
           </Nav>
+          {isCartOpen && <CartDropdown />}
+
         </Navbar.Collapse>
       </Navbar>
     </>

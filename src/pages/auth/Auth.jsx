@@ -43,11 +43,6 @@ const Auth = () => {
     setUser(initialValues)
   }
 
-  
-  // const getUser = async() => {
-  //   const newUser = await axios.get("http://localhost:4000/user", user);
-  //   console.log(newUser.data)
-  // }
 
   return (
     <div>
